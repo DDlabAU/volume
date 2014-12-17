@@ -23,5 +23,6 @@ There are four "zones" above the table (beneath the ultrasound sensor) which rep
   * LED colour: Yellow .. ish.
 3. 80-120 cm: Volume up zone: Hold your hand here to turn the volume up.
   * LED colour: Green.
-4. >120 cm: Power toggle zone: Hols your hand here to turn the stereo on/off .. cooldown is 5 seconds.
+4. >120 cm: Power toggle zone: Hold your hand here to turn the stereo on/off.
   * LED colour: Blue.
+  * Cooldown period: 5 seconds.
