@@ -11,8 +11,8 @@ Components
   * Volume control: A continuous rotation RC servo [like this one](https://www.sparkfun.com/products/9347)
   * Power control: 9 gram servo [like this one](http://www.hobbyking.com/hobbyking/store/__662__HXT900_9g_1_6kg_12sec_Micro_Servo.html)
 
-Function
-========
+Zone?!
+======
 
 There are four "zones" above the table (beneath the ultrasound sensor) which represent 4 different states:
 
