@@ -51,8 +51,8 @@ void setup()
 	int lastLastPing=0;
 	int lastLastLastPing=0;
 	int sumOfChanges=0;
-	static int allowablePingOffset=3;
-	unsigned long rolloverTimeout=15; //time it takes between iterations of loading values into the "last ping" integer set
+	static int allowablePingOffset=2;
+	unsigned long rolloverTimeout=50; //time it takes between iterations of loading values into the "last ping" integer set
 	unsigned long millisAtLastRollover=0;
 
 	boolean allowStateChange=false;
@@ -64,6 +64,8 @@ void loop()
    //ping=analogRead(pingPin);
 
   //check that change in ping isn't too steep to allow state change.
+
+  //it kind of looks like i am doing the same thing (low pass filtering) twice, but i need to store the last couple of values in order to determine the rate of change.
   if(millis()-rolloverTimeout>millisAtLastRollover)
   {
   	lastLastLastPing=lastLastPing;
@@ -104,10 +106,11 @@ void loop()
 
 if (allowStateChange)
 {
-  if(ping>230) state=inactive;
-  else if(ping>170) state=volume_down;
-  else if(ping>100) state=volume_up;
-  else state=toggle_power;
+  if(ping>200) state=inactive;
+  else if(ping>140) state=volume_down;
+  else if(ping>70) state=volume_up;
+  else if(ping>20) state=toggle_power;
+
 }
 /*
   Serial.print("ping graph: ");
