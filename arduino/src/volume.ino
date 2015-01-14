@@ -3,14 +3,14 @@ static unsigned int volumeServoUp=38;
 static unsigned int volumeServoDown=50;
 static unsigned int powerServoUnpressed=90;
 static unsigned int powerServoPressed=60;
-static unsigned int filter_alpha = 5;
+static unsigned int filter_alpha = 10;
 static unsigned int redPin=3;
 static unsigned int greenPin=6;
 static unsigned int bluePin=5;
 static unsigned int volumeServoPin = 9;
 static unsigned int powerServoPin = 10;
 static unsigned int powerToggleCooldown=5000;
-
+static unsigned int powerToggleSluggishness=2000;
 #include <Servo.h>
 
 Servo volumeServo, powerServo;
@@ -18,7 +18,10 @@ Servo volumeServo, powerServo;
 int pingPin = A0;
 
 boolean stereoIsOn=false;
+boolean sluggishnessArmed=true;
 long lastToggleTime=0;
+long sluggishnessStarttime=0;
+
 
 enum interface_states { //default state should be "get_data"
 	inactive,
@@ -51,8 +54,8 @@ void setup()
 	int lastLastPing=0;
 	int lastLastLastPing=0;
 	int sumOfChanges=0;
-	static int allowablePingOffset=2;
-	unsigned long rolloverTimeout=50; //time it takes between iterations of loading values into the "last ping" integer set
+	static int allowablePingOffset=1;
+	unsigned long rolloverTimeout=25; //time it takes between iterations of loading values into the "last ping" integer set
 	unsigned long millisAtLastRollover=0;
 
 	boolean allowStateChange=false;
@@ -101,16 +104,13 @@ void loop()
   else if (sumOfChanges<(-1*allowablePingOffset)) allowStateChange=false;
   else allowStateChange=true;
 
-
-
-
 if (allowStateChange)
 {
-  if(ping>200) state=inactive;
+  if(ping>180) state=inactive;
   else if(ping>140) state=volume_down;
   else if(ping>70) state=volume_up;
-  else if(ping>20) state=toggle_power;
-
+  else if(ping>10) state=toggle_power;
+  else state=inactive;
 }
 /*
   Serial.print("ping graph: ");
@@ -135,13 +135,26 @@ switch(state)
 
 	case toggle_power:
 		setcolour(0,0,255);
+
+		if(stereoIsOn && sluggishnessArmed)
+			{
+				sluggishnessStarttime=millis();
+				sluggishnessArmed=false;
+			}
+
+
+		if (millis()-sluggishnessStarttime>powerToggleSluggishness)
+		{
+
 		if(millis()-lastToggleTime>powerToggleCooldown)
 			{
 				onOff();
+				sluggishnessArmed=true;
 				lastToggleTime=millis();
 			}
-
+		}
 		break;
+
 	case inactive:
 		volumeServo.write(volumeServoZero);
 		if(stereoIsOn) setcolour(255,255,255); //white
