@@ -2,6 +2,7 @@ volume
 ======
 
 Ultrasound based volume control, runs on an arduino, controls the volume on the stereo at the lab.
+The arduino code has devolved into an ugly unreadable collection of hacks, with filters, delays and weirdness.. It works.. but clone it at your own risk.
 
 Components
 ==========
