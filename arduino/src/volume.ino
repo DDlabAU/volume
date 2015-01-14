@@ -3,14 +3,14 @@ static unsigned int volumeServoUp=38;
 static unsigned int volumeServoDown=50;
 static unsigned int powerServoUnpressed=90;
 static unsigned int powerServoPressed=60;
-static unsigned int filter_alpha = 10;
+static unsigned int filter_alpha = 5;
 static unsigned int redPin=3;
 static unsigned int greenPin=6;
 static unsigned int bluePin=5;
 static unsigned int volumeServoPin = 9;
 static unsigned int powerServoPin = 10;
 static unsigned int powerToggleCooldown=5000;
-static unsigned int powerToggleSluggishness=2000;
+static unsigned int powerToggleSluggishness=800;
 #include <Servo.h>
 
 Servo volumeServo, powerServo;
@@ -106,11 +106,10 @@ void loop()
 
 if (allowStateChange)
 {
+  if(ping>10) state=toggle_power;
+  if(ping>70) state=volume_up;
+  if(ping>140) state=volume_down;
   if(ping>180) state=inactive;
-  else if(ping>140) state=volume_down;
-  else if(ping>70) state=volume_up;
-  else if(ping>10) state=toggle_power;
-  else state=inactive;
 }
 /*
   Serial.print("ping graph: ");
@@ -124,19 +123,22 @@ if (allowStateChange)
 switch(state)
 {
 	case volume_down:
+		sluggishnessArmed=true;
 		setcolour(255,40,0);
 		volumeServo.write(volumeServoDown);
 		break;
 
 	case volume_up:
+		sluggishnessArmed=true;
 		setcolour(0,255,0);
 		volumeServo.write(volumeServoUp);
 		break;
 
 	case toggle_power:
 		setcolour(0,0,255);
+		volumeServo.write(volumeServoZero);
 
-		if(stereoIsOn && sluggishnessArmed)
+		if(sluggishnessArmed)
 			{
 				sluggishnessStarttime=millis();
 				sluggishnessArmed=false;
@@ -156,6 +158,7 @@ switch(state)
 		break;
 
 	case inactive:
+		sluggishnessArmed=true;
 		volumeServo.write(volumeServoZero);
 		if(stereoIsOn) setcolour(255,255,255); //white
 		else setcolour(255,0,0); //red
