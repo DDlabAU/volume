@@ -17,6 +17,8 @@ Zone?!
 
 There are four "zones" above the table (beneath the ultrasound sensor) which represent 4 different states:
 
+Measured from the table, we have:
+
 1. 0-50 cm: Deadzone: Nothing happens here.
   * LED colour: RED if stereo is (supposed to be) off.
   * LED colour: White if stereo is (supposed to be) on.
