@@ -1,0 +1,14 @@
+
+
+
+
+
+.build/uno-dd8692bf/src/volume.cpp : src/volume.ino
+	@mkdir -p .build/uno-dd8692bf/src
+	@echo [93msrc/volume.ino[0m
+	@/usr/local/bin/ino preproc -d /home/robotto/Hack/arduino-1.0.6/ -o $@ $^
+
+
+all : .build/uno-dd8692bf/src/volume.cpp
+	@true
+

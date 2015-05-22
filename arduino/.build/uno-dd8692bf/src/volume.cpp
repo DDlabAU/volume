@@ -1,3 +1,12 @@
+#include <Arduino.h>
+#include <Servo.h>
+void setup();
+void loop();
+void setcolour(int red,int green,int blue);
+void pulse_colour(int red,int green,int blue,int delaytime);
+void standby_light();
+void onOff();
+#line 1 "src/volume.ino"
 //COMPILES WITH ARDUINO v.1.0.6
 
 /*
@@ -16,7 +25,7 @@ static unsigned int powerServoPin = 10;
 static unsigned int powerToggleCooldown=5000;
 static unsigned int powerToggleSluggishness=800;
 
-#include <Servo.h>
+//#include <Servo.h>
 
 Servo /*volumeServo,*/ powerServo;
 
