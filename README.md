@@ -24,10 +24,10 @@ Measured from the table, we have:
 1. 0-50 cm: Deadzone: Nothing happens here.
   * LED colour: RED if stereo is (supposed to be) off.
   * LED colour: ~~White~~ Green if stereo is (supposed to be) on.
-~~2. 50-80 cm: Volume down zone: Hold your hand here to turn the volume down.
-  * LED colour: Yellow .. ish.
-3. 80-120 cm: Volume up zone: Hold your hand here to turn the volume up.
-  * LED colour: Green.~~
+2. ~~50-80 cm: Volume down zone: Hold your hand here to turn the volume down.~~
+  * ~~LED colour: Yellow .. ish.~~
+3. ~~80-120 cm: Volume up zone: Hold your hand here to turn the volume up.~~
+  * ~~LED colour: Green.~~
 4. >120 cm: Power toggle zone: Hold your hand here to turn the stereo on/off.
   * LED colour: Blue.
   * Cooldown period: 5 seconds.
